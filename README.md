@@ -222,7 +222,7 @@ This message shows that your installation appears to be working correctly.
 ### Clone this repository and move to example folder
 
 ```
-git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero
+git clone https://github.com/anushkatomar76/Docker-Basics.git
 cd  examples
 ```
 
@@ -234,7 +234,7 @@ docker login
 
 ```
 Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
-Username: abhishekf5
+Username: anushka599
 Password:
 WARNING! Your password will be stored unencrypted in /home/ubuntu/.docker/config.json.
 Configure a credential helper to remove this warning. See
@@ -254,75 +254,44 @@ docker build -t anushka599/my-first-docker-image:latest .
 Output of the above command
 
 ```
-Sending build context to Docker daemon  362.5kB
-Step 1/7 : FROM node:12.2.0-alpine
-12.2.0-alpine: Pulling from library/node
-e7c96db7181b: Pull complete
-a9b145f64bbe: Pull complete
-3bcb5e14be53: Pull complete
-Digest: sha256:2ab3d9a1bac67c9b4202b774664adaa94d2f1e426d8d28e07bf8979df61c8694
-Status: Downloaded newer image for node:12.2.0-alpine
- ---> f391dabf9dce
-Step 2/7 : WORKDIR /data
- ---> Running in 41d68ef4218b
-Removing intermediate container 41d68ef4218b
-  ---> a0f362df8208
-Step 3/7 : COPY . .
- ---> 7b0a1253a01e
-Step 4/7 : RUN npm install
- ---> Running in 66a3f1f1ca54
-npm WARN read-shrinkwrap This version of npm is compatible with lockfileVersion@1, but package-lock.json was generated for lockfileVersion@2. I'll try to do my best with it!
-
-> ejs@2.7.4 postinstall /data/node_modules/ejs
-> node ./postinstall.js
-
-Thank you for installing EJS: built with the Jake JavaScript build tool (https://jakejs.com/)
-
-npm WARN my-todolist@0.1.0 No repository field.
-npm WARN my-todolist@0.1.0 No license field.
-
-added 291 packages from 653 contributors and audited 291 packages in 12.013s
-found 24 vulnerabilities (1 low, 7 moderate, 13 high, 3 critical)
-  run `npm audit fix` to fix them, or `npm audit` for details
-Removing intermediate container 66a3f1f1ca54
- ---> 7f64ec0e3f42
-Step 5/7 : RUN npm run test
- ---> Running in b9586601d691
-
-> my-todolist@0.1.0 test /data
-> mocha --recursive --exit
-
+Sending build context to Docker daemon  3.072kB
+Step 1/6 : FROM ubuntu:latest
+latest: Pulling from library/ubuntu
+31e907dcc94a: Pull complete
+Digest: sha256:8a37d68f4f73ebf3d4efafbcf66379bf3728902a8038616808f04e34a9ab63ee
+Status: Downloaded newer image for ubuntu:latest
+ ---> edbfe74c41f8
+Step 2/6 : WORKDIR /app
+ ---> Running in 0a0eaaff1e47
+Removing intermediate container 0a0eaaff1e47
+ ---> 02f4f8052af9
+Step 3/6 : COPY . /app
+ ---> 1a608939f2aa
+Step 4/6 : RUN apt-get update && apt-get install -y python3 python3-pip
+ ---> Running in d2ebd386cd1c
+Fetched 25.0 MB in 12s (2058 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+Removing intermediate container d2ebd386cd1c
+ ---> 03034bae41f3
+Step 5/6 : ENV NAME World
+ ---> Running in 008439480d5c
+Removing intermediate container 008439480d5c
+ ---> 3058e8bfc280
+Step 6/6 : CMD ["python3","app.py"]
+ ---> Running in 1d1fc2b1fc4c
+Removing intermediate container 1d1fc2b1fc4c
+ ---> 5a781fd5bcbe
+Successfully built 5a781fd5bcbe
+Successfully tagged anushka599/my-first-docker-image:latest
 
 
-  Simple Calculations
-This part executes once before all tests
-    Test1
-executes before every test
-      ✓ Is returning 5 when adding 2 + 3
-executes before every test
-      ✓ Is returning 6 when multiplying 2 * 3
-    Test2
-executes before every test
-      ✓ Is returning 4 when adding 2 + 3
-executes before every test
-      ✓ Is returning 8 when multiplying 2 * 4
-This part executes once after all tests
-
-
-  4 passing (20ms)
-
-Removing intermediate container b9586601d691
- ---> 9e870155e2e4
-Step 6/7 : EXPOSE 8000
- ---> Running in 8b5148bb2348
-Removing intermediate container 8b5148bb2348
- ---> d19600d516bf
-Step 7/7 : CMD ["node","app.js"]
- ---> Running in 1e0d5d05d7a5
-Removing intermediate container 1e0d5d05d7a5
- ---> 3536b71ec2d9
-Successfully built 3536b71ec2d9
-Successfully tagged anushka599/node-todo-app:latest
 ```
 
 ### Verify Docker Image is created
@@ -334,43 +303,40 @@ docker images
 Output 
 
 ```
-REPOSITORY                 TAG             IMAGE ID       CREATED              SIZE
-anushka599/node-todo-app   latest          3536b71ec2d9   About a minute ago   104MB
-hello-world                latest          d2c94e258dcb   16 months ago        13.3kB
-node                       12.2.0-alpine   f391dabf9dce   5 years ago          77.7MB
+TORY                         TAG       IMAGE ID       CREATED         SIZE
+anushka599/my-first-docker-image   latest    5a781fd5bcbe   4 minutes ago   580MB
+ubuntu                             latest    edbfe74c41f8   6 weeks ago     78.1MB
+hello-world                        latest    d2c94e258dcb   16 months ago   13.3kB
+
 ```
 
 ### Run your First Docker Container
 
 ```
-docker run -it anushka599/node-todo-app
+docker run -it anushka599/my-first-docker-image:latest
 ```
 
 Output
 
 ```
-Todolist running on http://0.0.0.0:8000
+Hello world
 ```
 
 ### Push the Image to DockerHub and share it with the world
 
 ```
-docker push anushka599/node-todo-app
+docker push 
 ```
 
 Output
 
 ```
-Using default tag: latest
-The push refers to repository [docker.io/anushka599/node-todo-app]
-90dfbbe14072: Pushed
-b43ecda72683: Pushed
-12b0795acb3e: Pushed
-52c5fc2b2c4c: Pushed
-917da41f96aa: Layer already exists
-7d6e2801765d: Layer already exists
-f1b5933fe4b5: Layer already exists
-latest: digest: sha256:d419ba2e3007df46d109b5a1c52f280a1ad4ad496d1c2c8e3a9c77940b4e6a53 size: 1785
+The push refers to repository [docker.io/anushka599/my-first-docker-image]
+c86c894936da: Pushed
+e8e7281cba1f: Pushed
+1b9ee5d24ee3: Pushed
+f36fd4bb7334: Mounted from library/ubuntu
+latest: digest: sha256:d644a382a439999675b32ca15631169c498b771f1693b2cf179c4c40feacad93 size: 1155
 ```
 
 ### You must be feeling like a champ already 
